@@ -5,9 +5,9 @@ html{
   height: 100%;
 }
 body{
-  min-height: 100%;
-  margin: @bodyMargin;
-  background-color: @appColor;
+    min-height: 100%;
+    margin: @bodyMargin;
+    background-color: @appColor;
 }
 
 .app {
@@ -35,7 +35,7 @@ body{
     position: fixed;
     border-bottom: 1px solid #CCC;
 
-    .hamburger {
+    .menu-icon {
         top: 50%;
         position: absolute;
         transform: translateY(-50%);
@@ -61,6 +61,34 @@ body{
         justify-content: center;
         align-content: center;
         flex-direction: column;
+    }
+}
+
+.routes {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .route-item {
+        margin: 5px;
+        background-color: @appColor;
+        filter: brightness(120%);
+        color: #fff;
+        display: flex;
+
+        .route-item-icon-wrapper {
+            height: 70px;
+            width: 70px;
+
+            .route-item-icon {
+                height: inherit;
+                width: inherit;
+            }
+        }
+
+        .route-item-body {
+            margin: 5px;
+        }
     }
 }
 

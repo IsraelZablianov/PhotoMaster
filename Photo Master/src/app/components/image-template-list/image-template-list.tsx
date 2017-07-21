@@ -1,5 +1,5 @@
 import * as React from "react";
-import UploadImageComponent from "../upload-image/upload-image";
+import UploadImageComponent from "../image-uploader/image-uploader";
 import { imageTemplates } from "./image-templates";
 
 export interface ImageTemplateListProps {

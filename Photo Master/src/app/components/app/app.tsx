@@ -1,5 +1,9 @@
 import * as React from 'react';
-import ImageTemplateList from "../image-template-list/image-template-list";
+import {
+    BrowserRouter as Router,
+    // Route,
+} from 'react-router-dom'
+
 import { Header } from "../header/header";
 
 export interface AppProps {
@@ -7,7 +11,6 @@ export interface AppProps {
 }
 
 export interface AppState {
-    imagePreviewUrl?: string;
     title: string;
 }
 
@@ -17,27 +20,22 @@ export default class App extends React.Component<AppProps, AppState> {
         super(props);
 
         this.state = {
-            imagePreviewUrl: undefined,
             title: "Photo Master"
         };
     }
 
     render(): JSX.Element {
         return (
-            <div className="app">
-                <Header title={this.state.title}></Header>
-                <div className="app-body">
-                    <ImageTemplateList imageChanged={(file) => { this.onImageSelected(file) }}>
-                    </ImageTemplateList>
+            <Router>
+                <div className="app">
+                    <Header title={this.state.title}></Header>
+                    <div className="app-body">
+                        {/* <Route exact path="/" component={Home}/>
+                        <Route path="/about" component={About}/>
+                        <Route path="/topics" component={Topics}/> */}
+                    </div>
                 </div>
-            </div>
+            </Router>
         );
-    }
-
-    onImageSelected(file: any): void {
-        const url = URL.createObjectURL(file);
-        this.setState({
-            imagePreviewUrl: url
-        })
     }
 }

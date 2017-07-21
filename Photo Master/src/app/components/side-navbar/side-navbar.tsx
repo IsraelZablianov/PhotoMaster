@@ -1,6 +1,7 @@
 import * as React from 'react';
 const SideNav = require('react-simple-sidenav').default;
- 
+export const MenuIcon = require('react-simple-sidenav').MenuIcon
+
 /**
  * for more : https://www.npmjs.com/package/react-simple-sidenav
  */

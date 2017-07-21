@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { SideNavbar, SideNavbarProps } from "../side-nav/side-navbar";
-const menu = require("../../../images/hamburger.png");
+import { SideNavbar, SideNavbarProps, MenuIcon } from '../side-navbar/side-navbar';
+import { Link } from 'react-router-dom'
+const crop = require("../../../images/crop-images/crop.png");
 
 export interface HeaderProps {
     title: string;
@@ -25,15 +26,34 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <div className="header-title">
                     {this.props.title}
                 </div>
-                <div onClick={() => { this.openMenu() }}>
-                    <img className="hamburger" src={menu} alt="menu" />
-                </div>
-                <SideNavbar navStyle={{width: '70%'}}
+                <MenuIcon onClick={() => { this.openMenu() }} className="menu-icon" />
+                <SideNavbar navStyle={{ width: '70%', backgroundColor: '#393939', color: "#fff" }}
                     {...this.props.sideNavbarProps}
-                    showNav={this.state.showSideNav} 
-                    onHideNav={() => {this.closeMenu()}}>
-                    <div className="side-nav-header">
-                        {this.props.sideNavbarProps && this.props.sideNavbarProps.title || this.props.title}
+                    showNav={this.state.showSideNav}
+                    onHideNav={() => { this.closeMenu() }}>
+                    <div>
+                        <div className="side-nav-header">
+                            {this.props.sideNavbarProps && this.props.sideNavbarProps.title || this.props.title}
+                        </div>
+                        <div className="side-nav-body">
+                            <ul className="routes">
+                                <li>
+                                    {/* <RouteItem></RouteItem> */}
+                                    <Link to="/">
+                                        <div className="route-item">
+                                            <div className="route-item-icon-wrapper">
+                                                <img className="route-item-icon-wrapper" src={crop} alt="crop" />
+                                            </div>
+                                            <div className="route-item-body">
+                                                <div className="description">
+                                                    Cat & Crop
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </SideNavbar>
             </div>

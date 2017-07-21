@@ -36,7 +36,7 @@ body {
   position: fixed;
   border-bottom: 1px solid #CCC;
 }
-.header .hamburger {
+.header .menu-icon {
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -68,6 +68,29 @@ body {
   justify-content: center;
   align-content: center;
   flex-direction: column;
+}
+.routes {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.routes .route-item {
+  margin: 5px;
+  background-color: #393939;
+  filter: brightness(120%);
+  color: #fff;
+  display: flex;
+}
+.routes .route-item .route-item-icon-wrapper {
+  height: 70px;
+  width: 70px;
+}
+.routes .route-item .route-item-icon-wrapper .route-item-icon {
+  height: inherit;
+  width: inherit;
+}
+.routes .route-item .route-item-body {
+  margin: 5px;
 }
 .image-templates {
   list-style-type: none;
