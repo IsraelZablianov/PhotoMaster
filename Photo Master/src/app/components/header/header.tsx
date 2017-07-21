@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { SideNavbar, SideNavbarProps, MenuIcon } from '../side-navbar/side-navbar';
-import { Link } from 'react-router-dom'
-const crop = require("../../../images/crop-images/crop.png");
+import { navigatorList } from "../route-navigator/navigator-list";
+import RouteNavigator from "../route-navigator/route-navigator";
+import 'react-sticky-header/styles.css';
+const StickyHeader = require('react-sticky-header');
 
 export interface HeaderProps {
     title: string;
@@ -13,8 +15,10 @@ export interface HeaderState {
 }
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
+  
     constructor(props: HeaderProps) {
         super(props);
+
         this.state = {
             showSideNav: false
         };
@@ -22,41 +26,37 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
     render(): JSX.Element {
         return (
-            <div className="header">
-                <div className="header-title">
-                    {this.props.title}
-                </div>
-                <MenuIcon onClick={() => { this.openMenu() }} className="menu-icon" />
-                <SideNavbar navStyle={{ width: '70%', backgroundColor: '#393939', color: "#fff" }}
-                    {...this.props.sideNavbarProps}
-                    showNav={this.state.showSideNav}
-                    onHideNav={() => { this.closeMenu() }}>
-                    <div>
-                        <div className="side-nav-header">
-                            {this.props.sideNavbarProps && this.props.sideNavbarProps.title || this.props.title}
-                        </div>
-                        <div className="side-nav-body">
-                            <ul className="routes">
-                                <li>
-                                    {/* <RouteItem></RouteItem> */}
-                                    <Link to="/">
-                                        <div className="route-item">
-                                            <div className="route-item-icon-wrapper">
-                                                <img className="route-item-icon-wrapper" src={crop} alt="crop" />
-                                            </div>
-                                            <div className="route-item-body">
-                                                <div className="description">
-                                                    Cat & Crop
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+            <StickyHeader header={
+                <header className="header">
+                    <div className="header-title">
+                        {this.props.title}
                     </div>
-                </SideNavbar>
-            </div>
+                    <MenuIcon onClick={() => { this.openMenu() }} className="menu-icon" />
+                    <SideNavbar navStyle={{ width: '70%', backgroundColor: '#393939', color: "#fff" }}
+                        {...this.props.sideNavbarProps}
+                        showNav={this.state.showSideNav}
+                        onHideNav={() => { this.closeMenu() }}>
+                        <div>
+                            <div className="side-nav-header">
+                                {this.props.sideNavbarProps && this.props.sideNavbarProps.title || this.props.title}
+                            </div>
+                            <div className="side-nav-body">
+                                <ul className="routes">
+                                    {
+                                        navigatorList.map((navItem, index) => {
+                                            return (
+                                                <li key={index}>
+                                                    <RouteNavigator {...navItem} />
+                                                </li>
+                                            );
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </SideNavbar>
+                </header>
+            }/>
         );
     }
 

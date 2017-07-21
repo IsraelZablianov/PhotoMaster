@@ -4,25 +4,25 @@ const spiderMan2 = require("../../../images/template-images/spider-man-2.png");
 const ironMan = require("../../../images/template-images/iron-man.png");
 
 export interface ImageTemplate {
-    url: string;
+    imageUrl: string;
     className: string;
 }
 
 export const imageTemplates: ImageTemplate[] = [
     {
-        url: deadpull,
+        imageUrl: deadpull,
         className: "deadpull"
     },
     {
-        url: spiderMan,
+        imageUrl: spiderMan,
         className: "spider-man"
     },
     {
-        url: ironMan,
+        imageUrl: ironMan,
         className: "iron-man"
     },
     {
-        url: spiderMan2,
+        imageUrl: spiderMan2,
         className: "spider-man"
     }
 ]; 

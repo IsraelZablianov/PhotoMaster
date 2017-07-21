@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom'
 
 import { Header } from "../header/header";
+import { navigatorList } from "../route-navigator/navigator-list";
+import { Route } from "react-router";
 
 export interface AppProps {
 
@@ -30,9 +32,14 @@ export default class App extends React.Component<AppProps, AppState> {
                 <div className="app">
                     <Header title={this.state.title}></Header>
                     <div className="app-body">
-                        {/* <Route exact path="/" component={Home}/>
-                        <Route path="/about" component={About}/>
-                        <Route path="/topics" component={Topics}/> */}
+                        {
+                            navigatorList.map((routeConfig, index) => {
+                                return (
+                                    routeConfig.component && routeConfig.link &&
+                                    (<Route key={index} exact path={routeConfig.link} component={routeConfig.component} {...routeConfig}/>)
+                                );
+                            })
+                        }
                     </div>
                 </div>
             </Router>

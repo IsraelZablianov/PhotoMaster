@@ -30,7 +30,6 @@ body{
     height: @headerHeight;
     z-index: 10000;
     width: 100%;
-    margin: -8px;
     .vertical-gradient(@headerColor, @endHeaderColor);
     position: fixed;
     border-bottom: 1px solid #CCC;
@@ -78,7 +77,7 @@ body{
 
         .route-item-icon-wrapper {
             height: 70px;
-            width: 70px;
+            width: 80px;
 
             .route-item-icon {
                 height: inherit;
@@ -95,10 +94,21 @@ body{
 .image-templates {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    width: 95%;
+    overflow: auto;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    li {
+        margin-right: 5%;
+    }
 
     .img-template {
         height: 150px;
-        width: 250px;
+        width: 200px;
         text-align: center;
         box-shadow: 1px 1px 10px #aaa;
         padding: 1px;

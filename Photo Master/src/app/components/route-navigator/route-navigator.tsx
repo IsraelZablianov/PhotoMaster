@@ -1,22 +1,19 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { RouteNavigatorConfig } from "./navigator-list";
 
-export interface RouteItemProps {
-    linkTo: string;
-    icon: string;
-    iconAlt?: string;
-    title: string;
-    description: string;
+export interface RouteNavigatorProps extends RouteNavigatorConfig {
+
 }
 
-export interface RouteItemState {
+export interface RouteNavigatorState {
     
 }
 
-export default class RouteItem extends React.Component<RouteItemProps, RouteItemState> {
+export default class RouteNavigator extends React.Component<RouteNavigatorProps, RouteNavigatorState> {
     render(): JSX.Element {
         return (
-            <Link to={this.props.linkTo}>
+            <Link to={this.props.link}>
             <div className="route-item">
                 <div className="route-item-icon-wrapper">
                     <img className="route-item-icon-wrapper" src={this.props.icon} alt={this.props.iconAlt} />

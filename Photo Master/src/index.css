@@ -23,7 +23,6 @@ body {
   height: 60px;
   z-index: 10000;
   width: 100%;
-  margin: -8px;
   background: #373F52;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#373F52, #202A36);
@@ -83,7 +82,7 @@ body {
 }
 .routes .route-item .route-item-icon-wrapper {
   height: 70px;
-  width: 70px;
+  width: 80px;
 }
 .routes .route-item .route-item-icon-wrapper .route-item-icon {
   height: inherit;
@@ -95,10 +94,20 @@ body {
 .image-templates {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  width: 95%;
+  overflow: auto;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.image-templates li {
+  margin-right: 5%;
 }
 .image-templates .img-template {
   height: 150px;
-  width: 250px;
+  width: 200px;
   text-align: center;
   box-shadow: 1px 1px 10px #aaa;
   padding: 1px;
@@ -109,7 +118,7 @@ body {
 }
 .image-templates .deadpull {
   height: 150px;
-  width: 250px;
+  width: 200px;
   text-align: center;
   box-shadow: 1px 1px 10px #aaa;
   padding: 1px;
@@ -121,7 +130,7 @@ body {
 }
 .image-templates .spider-man {
   height: 150px;
-  width: 250px;
+  width: 200px;
   text-align: center;
   box-shadow: 1px 1px 10px #aaa;
   padding: 1px;
@@ -133,7 +142,7 @@ body {
 }
 .image-templates .iron-man {
   height: 150px;
-  width: 250px;
+  width: 200px;
   text-align: center;
   box-shadow: 1px 1px 10px #aaa;
   padding: 1px;
