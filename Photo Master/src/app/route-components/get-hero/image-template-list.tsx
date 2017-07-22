@@ -1,5 +1,4 @@
 import * as React from "react";
-import UploadImageComponent from "../../components/image-uploader/image-uploader";
 import { imageTemplates } from "./image-templates";
 
 export interface ImageTemplateListProps {
@@ -27,9 +26,9 @@ export default class ImageTemplateList extends React.Component<ImageTemplateList
                         imageTemplates.map((imageTemplate, index) => {
                             return (
                                 <li key={index}>
-                                    <UploadImageComponent imageChanged={(file) => { this.onImageChanged(file) }}>
+                                    <div onClick={() => { this.onImageChanged(imageTemplate.imageUrl) }}>
                                         <img className={imageTemplate.className} src={imageTemplate.imageUrl} />
-                                    </UploadImageComponent>
+                                    </div>
                                 </li>
                             );
                         })
