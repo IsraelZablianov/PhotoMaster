@@ -7,3 +7,7 @@ npm-libraries -
     extra - https://reacttraining.com/react-router
 
 3.  react-simple-sidenav - https://www.npmjs.com/package/react-simple-sidenav
+
+4. react-rangeslider - https://www.npmjs.com/package/react-rangeslider
+
+5. Gif - https://github.com/antimatter15/jsgif

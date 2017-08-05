@@ -1,5 +1,5 @@
 import * as React from "react";
-import { imageTemplates } from "./image-templates";
+import { imageTemplates } from "./image-templates.config";
 
 export interface ImageTemplateListProps {
     imageChanged?: (File: {}) => void;

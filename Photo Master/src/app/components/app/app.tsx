@@ -1,11 +1,7 @@
 import * as React from 'react';
-import {
-    BrowserRouter as Router,
-    // Route,
-} from 'react-router-dom'
-
+import { BrowserRouter as Router} from "react-router-dom";
 import { Header } from "../header/header";
-import { navigatorList } from "../route-navigator/navigator-list";
+import { navigatorList } from "./navigator-list.config";
 import { Route } from "react-router";
 
 export interface AppProps {

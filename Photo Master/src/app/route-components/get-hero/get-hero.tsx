@@ -28,7 +28,7 @@ export default class GetHero extends React.Component<GetHeroProps, GetHeroState>
                 <div className="upload-details">{msg}</div>
                 <div className={arrowClass} />
                 <div>
-                    <UploadImageComponent imageChanged={(file) => { this.onImageChanged(file) }}>
+                    <UploadImageComponent fileSelected={(file) => { this.onImageChanged(file) }}>
                         <img className="upload-image" src={this.state.imagePreviewUrl || uploadImage} />
                     </UploadImageComponent>
                 </div>

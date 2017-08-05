@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { SideNavbar, SideNavbarProps, MenuIcon } from '../side-navbar/side-navbar';
-import { navigatorList } from "../route-navigator/navigator-list";
 import RouteNavigator from "../route-navigator/route-navigator";
 import 'react-sticky-header/styles.css';
+import { navigatorList } from "../app/navigator-list.config";
 const StickyHeader = require('react-sticky-header');
 
 export interface HeaderProps {
@@ -43,10 +43,10 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                             <div className="side-nav-body">
                                 <ul className="routes">
                                     {
-                                        navigatorList.map((navItem, index) => {
+                                        navigatorList.map((routeNavigatorConfig, index) => {
                                             return (
                                                 <li key={index}>
-                                                    <RouteNavigator {...navItem} />
+                                                    <RouteNavigator routeNavigatorConfig={routeNavigatorConfig} />
                                                 </li>
                                             );
                                         })
