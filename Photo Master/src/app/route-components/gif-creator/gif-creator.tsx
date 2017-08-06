@@ -58,7 +58,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
             <div className="create-gif">
                 <div className="upload-details">{this.state.fileSelected ? this.state.info : this.props.title}</div>
                 {!this.state.fileSelected && (
-                    <UploadImageComponent accept={this.props.uploadAcceptTypes} fileSelected={(file) => { this.onFileChanged(file) }}>
+                    <UploadImageComponent accept={this.props.uploadAcceptTypes} fileSelected={(file) => { setTimeout(() => {this.onFileChanged(file)}, 0) }}>
                         <img className="upload-image" src={uploadImage} />
                     </UploadImageComponent>)
 
@@ -66,13 +66,12 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
                 {
                     this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif) && (
                         <div>
-                            <video controls ref={(videoEl) => { this.videoEl = videoEl }}>
+                            <video controls ref={(videoEl) => { this.setVideo(videoEl) }}>
                                 <source src={this.state.previewFileUrl} type={this.state.fileSelected.type} />
                             </video>
                             {
-                                this.state.previewResultUrl && <div>
-                                    <img src={this.state.previewResultUrl} />
-                                </div>
+                                this.state.previewResultUrl && (
+                                    <img src={this.state.previewResultUrl} className="video-to-gif-result"/>)
                             }
                             <Slider
                                 min={this.props.config && this.props.config.minIntervalValue}
@@ -88,6 +87,13 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
                 }
             </div>
         );
+    }
+
+    setVideo(videoEl: HTMLVideoElement | null) {
+        this.videoEl = videoEl;
+        if(this.videoEl) {
+            this.videoEl.onloadedmetadata = () => {this.startCreateGif()};
+        }
     }
 
     onRangeChanged(value: number) {
@@ -117,18 +123,19 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
     }
 
     onFileChanged(file: File): void {
-        this.startTime = new Date();
-
         this.setState({
             fileSelected: file,
             previewFileUrl: URL.createObjectURL(file)
         });
 
+    }
+
+    startCreateGif() {
         this.gif = new GIF({
             workers: 4,
             workerScript: GIF_worker_URL,
-            width: this.props.width,
-            height: this.props.height,
+            width: this.videoEl && this.videoEl.videoWidth,
+            height: this.videoEl && this.videoEl.videoHeight,
             debug: true
         });
 
@@ -141,7 +148,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
             __this.setState({
                 previewResultUrl: URL.createObjectURL(blob)
             });
-                var delta = new Date().getMilliseconds() - __this.startTime.getMilliseconds();
+                var delta = (new Date()).valueOf() - __this.startTime.valueOf();
             
             __this.setState({
                 info:"done in " + (delta / 1000).toFixed(2) + "sec" +
