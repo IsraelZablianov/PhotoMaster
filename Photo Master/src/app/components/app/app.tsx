@@ -3,6 +3,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 import { Header } from "../header/header";
 import { navigatorList } from "./navigator-list.config";
 import { Route } from "react-router";
+import LoaderContainer from "../loading-overlay/loading-overlay-container"
 
 export interface AppProps {
 
@@ -27,6 +28,7 @@ export default class App extends React.Component<AppProps, AppState> {
             <Router>
                 <div className="app">
                     <Header title={this.state.title}></Header>
+                    <LoaderContainer />
                     <div className="app-body">
                         {
                             navigatorList.map((routeConfig, index) => {

@@ -1,5 +1,5 @@
 import GetHero from "../../route-components/get-hero/get-hero";
-import GifCreator from "../../route-components/gif-creator/gif-creator";
+import VideoToGifCreatorContainer from "../../route-components/gif-creator/video-to-gif-container";
 import { RouteNavigatorConfig } from "../../shared-types/routes";
 
 const crop = require("../../../images/icon-images/crop.png");
@@ -18,7 +18,7 @@ export const navigatorList: NavigatorListConfig[] = [
         icon: gif,
         iconAlt: "GIF",
         title: "Make A GIF",
-        component: GifCreator
+        component: VideoToGifCreatorContainer
     },
     {
         link: "/get-hero",
