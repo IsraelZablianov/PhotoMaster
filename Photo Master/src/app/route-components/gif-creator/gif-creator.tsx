@@ -55,10 +55,11 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
         this.state = {
             intervalValue: 50,
-            info: "ready to start"
+            info: "Ready To Start"
         }
     }
 
+    
     render(): JSX.Element {
         return (
             <div className="create-gif">
@@ -72,15 +73,13 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
                 }
                 {
-                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif) && (
+                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif)
+                    && !this.state.previewResultUrl &&
+                    (
                         <div>
                             <video ref={(videoEl) => { this.setVideo(videoEl) }}>
                                 <source src={this.state.previewFileUrl} type={this.state.fileSelected.type} />
                             </video>
-                            {
-                                this.state.previewResultUrl && (
-                                    <img src={this.state.previewResultUrl} className="video-to-gif-result"/>)
-                            }
                             <Slider
                                 min={this.props.config && this.props.config.minIntervalValue}
                                 max={this.props.config && this.props.config.maxIntervalValue}
@@ -90,6 +89,17 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
                             <div className="do-it" onClick={() => {this.onStart()}}>
                                 Do-It
                             </div>
+                        </div>
+                    )
+                }
+                {
+                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif)
+                    && this.state.previewResultUrl && (
+                        <div className="download-ready">
+                            <img src={this.state.previewResultUrl} className="video-to-gif-result"/>    
+                            <a download={this.state.fileSelected.name.split(".")[0] + ".gif"}  
+                                href={this.state.previewResultUrl} 
+                                className="download">Download</a>
                         </div>
                     )
                 }
@@ -109,7 +119,6 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
     onRangeChanged(value: number) {
         this.setState({
-            info: "ready to start with an interval of " + value + "ms",
             intervalValue: value
         });
     }
@@ -127,7 +136,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
     capture() {
         if(this.videoEl && this.gif) {
             this.setState({
-                info: "capturing at " + this.videoEl.currentTime.toFixed(2)
+                info: "Capturing at " + this.videoEl.currentTime.toFixed(2)
             });
             this.gif.addFrame(this.videoEl, {copy: true, delay: this.state.intervalValue});
         }
@@ -139,7 +148,6 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
             fileSelected: file,
             previewFileUrl: URL.createObjectURL(file)
         });
-
     }
 
     startCreateGif() {
@@ -147,8 +155,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
             workers: 4,
             workerScript: workerPath,
             width: this.videoEl && this.videoEl.videoWidth,
-            height: this.videoEl && this.videoEl.videoHeight,
-            debug: true
+            height: this.videoEl && this.videoEl.videoHeight
         });
 
         this.gif.on("start", () => {
@@ -157,18 +164,19 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
         this.gif.on('finished', (blob: Blob) => {
             this.setState({
+                info: "Ready To Download",
                 previewResultUrl: URL.createObjectURL(blob)
             });
-            var delta = (new Date()).valueOf() - this.startTime.valueOf();
-            this.setState({
-                info:"done in " + (delta / 1000).toFixed(2) + "sec" +
-                ", size " + (blob.size / 1000).toFixed(2) + "kb"
-            });
+            // var delta = (new Date()).valueOf() - this.startTime.valueOf();
+            // this.setState({
+            //     info:"done in " + (delta / 1000).toFixed(2) + "sec" +
+            //     "size " + (blob.size / 1000).toFixed(2) + "kb"
+            // });
         });
 
         this.gif.on("progress", (p: number) => {
                this.setState({
-                info: "rendering: " + Math.round(p * 100) + "%"
+                info: "Rendering: " + Math.round(p * 100) + "%"
             });
         });
 
