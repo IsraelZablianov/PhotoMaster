@@ -113,7 +113,7 @@ body{
     }
 }
 
-.create-gif {
+.create-gif, .crop {
     overflow: hidden;
     video, .video-to-gif-result {
         position: relative;
@@ -159,6 +159,30 @@ body{
         text-decoration: none;
     }
 
+}
+
+.crop {
+    text-align: center;
+    .upload-image {
+        position: relative;
+        width: 90%;
+        margin-top: 20px;
+        box-shadow: 1px 1px 10px #aaa;
+    }
+
+    .cropped-image {
+        margin-top: 15px;
+        max-height: 100%;
+        max-width: 100%;
+        position: relative;
+    }
+
+    .description {
+        position: relative;
+        color: #fff;
+        font-size: 2em;
+        margin-top: 20px;
+    }
 }
 
 .get-hero, .create-gif {

@@ -108,26 +108,32 @@ body {
 .routes .route-item .route-item-body {
   margin: 5px;
 }
-.create-gif {
+.create-gif,
+.crop {
   overflow: hidden;
 }
 .create-gif video,
-.create-gif .video-to-gif-result {
+.crop video,
+.create-gif .video-to-gif-result,
+.crop .video-to-gif-result {
   position: relative;
   width: 250px;
   height: 150px;
 }
-.create-gif .gif-config {
+.create-gif .gif-config,
+.crop .gif-config {
   display: flex;
   flex-wrap: wrap;
 }
-.create-gif .download-ready {
+.create-gif .download-ready,
+.crop .download-ready {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.create-gif .download-ready .download {
+.create-gif .download-ready .download,
+.crop .download-ready .download {
   border-radius: 28px;
   font-family: Arial;
   background: #7CB342;
@@ -137,7 +143,8 @@ body {
   text-decoration: none;
   margin-top: 15px;
 }
-.create-gif .do-it {
+.create-gif .do-it,
+.crop .do-it {
   color: #fff;
   width: 50px;
   position: relative;
@@ -151,6 +158,27 @@ body {
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
+}
+.crop {
+  text-align: center;
+}
+.crop .upload-image {
+  position: relative;
+  width: 90%;
+  margin-top: 20px;
+  box-shadow: 1px 1px 10px #aaa;
+}
+.crop .cropped-image {
+  margin-top: 15px;
+  max-height: 100%;
+  max-width: 100%;
+  position: relative;
+}
+.crop .description {
+  position: relative;
+  color: #fff;
+  font-size: 2em;
+  margin-top: 20px;
 }
 .get-hero,
 .create-gif {

@@ -1,6 +1,7 @@
 import GetHero from "../../route-components/get-hero/get-hero";
 import VideoToGifCreatorContainer from "../../route-components/gif-creator/video-to-gif-container";
 import { RouteNavigatorConfig } from "../../shared-types/routes";
+import { Crop } from "../../route-components/crop/crop";
 
 const crop = require("../../../images/icon-images/crop.png");
 const gif = require("../../../images/icon-images/gif3.png");
@@ -30,7 +31,8 @@ export const navigatorList: NavigatorListConfig[] = [
     {
         link: "/",
         icon: crop,
-        iconAlt: "Cat & Crop",
-        title: "Cat & Crop"   
+        iconAlt: "Crop",
+        title: "Crop",
+        component: Crop   
     },
 ];

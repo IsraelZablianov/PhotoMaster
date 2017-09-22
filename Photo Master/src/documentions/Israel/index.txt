@@ -11,3 +11,5 @@ npm-libraries -
 4. react-rangeslider - https://www.npmjs.com/package/react-rangeslider
 
 5. Gif - https://github.com/antimatter15/jsgif
+
+6. react-image-crop-component - https://www.npmjs.com/package/react-image-crop-component
