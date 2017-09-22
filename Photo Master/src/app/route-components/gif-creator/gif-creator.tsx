@@ -36,7 +36,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
     static defaultProps: GifCreatorProps = {
         title: "Upload Video To Start",
-        uploadAcceptTypes: "video/mp4,video/x-m4v,video/*",
+        uploadAcceptTypes: "video/*",
         gifType: GifCreationType.VideoToGif,
         config: {
             maxIntervalValue: 500,
