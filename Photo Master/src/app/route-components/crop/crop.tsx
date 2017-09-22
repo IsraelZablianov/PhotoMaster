@@ -38,7 +38,7 @@ export class Crop extends React.Component<CropProps, CropState> {
                 }
                 {
                     this.state.imageToCropUrl &&
-                    <div>
+                    <div className="image-block">
                         <ReactImageCrop src={this.state.imageToCropUrl}
                             square={false}
                             resize={false}
