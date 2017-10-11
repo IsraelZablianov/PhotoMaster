@@ -6,8 +6,13 @@ html{
 }
 body{
     min-height: 100%;
+    height: 100%;
     margin: @bodyMargin;
     background-color: @appColor;
+    overflow: hidden;
+}
+#root {
+    height: 100%;
 }
 
 .app {
@@ -19,6 +24,7 @@ body{
 
     .app-body {
         padding-top: @headerHeight;
+        height: 100%;
     }
 
     .hide {
@@ -113,7 +119,7 @@ body{
     }
 }
 
-.create-gif, .crop {
+.create-gif, .crop, .dynamic-modal{
     overflow: hidden;
     video, .video-to-gif-result {
         position: relative;
@@ -125,44 +131,32 @@ body{
         display: flex;
         flex-wrap: wrap;
     }
-
-    .download-ready {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .download {
-            border-radius: 28px;
-            font-family: Arial;
-            background: #7CB342;
-            color: #ffffff;
-            font-size: 20px;
-            padding: 10px 20px 10px 20px;
-            text-decoration: none;
-            margin-top: 15px;
-        }
-    }
     .do-it {
-        color: #fff;
-        width: 50px;
+        color: #ffffff;
+        width: 110px;
         position: relative;
         text-align: center;
         left: 50%;
         transform: translateX(-50%);
         border-radius: 28px;
         font-family: Arial;
-        background: #7CB342;
+        background: @mainButton;
         color: #ffffff;
         font-size: 20px;
         padding: 10px 20px 10px 20px;
         text-decoration: none;
     }
-
 }
 
 .crop {
     text-align: center;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+
+    .image-block {
+        align-self: center;
+    }
     .upload-image {
         position: relative;
         width: 90%;
@@ -181,6 +175,42 @@ body{
         color: #fff;
         font-size: 2em;
         margin-top: 20px;
+    }
+}
+
+.dynamic-modal {
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 250px;
+        min-height: 150px;
+        .btns {
+            display: flex;
+            line-height: 35px;
+            height: 35px;
+            font-size: 15px;
+            width: 100%;
+            margin-top: auto;
+            .btn {
+                font-family: Arial;
+                background: #7CB342;
+                color: #ffffff;
+                text-decoration: none;
+                text-align: center;
+                width: 50%;
+            }
+            .download {
+                .btn;
+                border-radius: 0 0 0 10px;
+                margin-right: 1px;
+            }
+            .close {
+                .btn;
+                border-radius: 0 0 10px 0;
+            }
+        }
     }
 }
 

@@ -13,3 +13,5 @@ npm-libraries -
 5. Gif - https://github.com/antimatter15/jsgif
 
 6. react-image-crop-component - https://www.npmjs.com/package/react-image-crop-component
+
+7. react-dynamic-modal - https://github.com/xue2han/react-dynamic-modal

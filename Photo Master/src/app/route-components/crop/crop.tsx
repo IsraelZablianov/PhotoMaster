@@ -3,6 +3,7 @@ var ReactImageCrop = require('react-image-crop-component').default;
 import 'react-image-crop-component/lib/style.css';
 import UploadImageComponent from "../../components/image-uploader/image-uploader";
 import { CurrentCropStateObject } from "./types";
+import { ModalManager, DynamicModal } from "../../components/dynamic-modal/dynamic-modal";
 const uploadImage = require("../../../images/icon-images/upload-image.gif");
 
 export interface CropProps {
@@ -30,7 +31,7 @@ export class Crop extends React.Component<CropProps, CropState> {
                 {
                     !this.state.selectedFile &&
                     <div>
-                        <div className="description">Upload Image And Start Cropping!</div>
+                        <div className="description">Upload Image To Start</div>
                         <UploadImageComponent fileSelected={(file) => { this.onFileSelected(file) }}>
                             <img className="upload-image" src={uploadImage}/>
                         </UploadImageComponent>
@@ -44,15 +45,6 @@ export class Crop extends React.Component<CropProps, CropState> {
                             resize={false}
                             border={"dashed #ffffff 2px"}
                             onCrop={(e: CurrentCropStateObject) => this.onCropped(e)} />
-                    </div>
-                }
-                {
-                    this.state.previewResultUrl && this.state.selectedFile &&
-                    <div className="download-ready">
-                        <img className="cropped-image" src={this.state.previewResultUrl}/>
-                            <a download={this.state.selectedFile.name}  
-                                href={this.state.previewResultUrl} 
-                                className="download">Download</a>
                     </div>
                 }
             </div>);
@@ -72,6 +64,16 @@ export class Crop extends React.Component<CropProps, CropState> {
             this.setState({
                 previewResultUrl: image
             });
+            this.openModalResult();
         }
+    }
+
+    openModalResult(): void {
+        const fileName = this.state.selectedFile ?
+        this.state.selectedFile.name
+        : "PhotoMaster.png";
+        ModalManager.open(<DynamicModal
+            resultFileName={fileName}
+            resultUrl={this.state.previewResultUrl} />)
     }
 }

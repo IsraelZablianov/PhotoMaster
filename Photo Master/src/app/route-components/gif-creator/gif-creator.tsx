@@ -6,6 +6,7 @@ const Slider = require('react-rangeslider').default;
 import 'react-rangeslider/lib/index.css'
 import { Gif } from "../../shared-types/gif";
 import { GifCreationType, GifCreationConfig } from "./types";
+import { DynamicModal, ModalManager } from '../../components/dynamic-modal/dynamic-modal';
 const uploadImage = require("../../../images/icon-images/upload-image.gif");
 
 export type GifCreatorProps = GifCreatorDispatchProps & GifCreatorBaseProps;
@@ -48,7 +49,6 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
     private gif: Gif;
     private videoEl: HTMLVideoElement | null;
-    private startTime: Date;
 
     constructor(props: GifCreatorProps) {
         super(props);
@@ -59,7 +59,6 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
         }
     }
 
-    
     render(): JSX.Element {
         return (
             <div className="create-gif">
@@ -70,11 +69,9 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
                     <UploadImageComponent accept={this.props.uploadAcceptTypes} fileSelected={(file) => { this.onFileChanged(file) }}>
                         <img className="upload-image" src={uploadImage} />
                     </UploadImageComponent>)
-
                 }
                 {
-                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif)
-                    && !this.state.previewResultUrl &&
+                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif)&& 
                     (
                         <div>
                             <video ref={(videoEl) => { this.setVideo(videoEl) }}>
@@ -86,20 +83,9 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
                                 tooltip={true}
                                 value={this.state.intervalValue}
                                 onChange={(value: number) => { this.onRangeChanged(value) }} />
-                            <div className="do-it" onClick={() => {this.onStart()}}>
-                                Do-It
+                            <div className="do-it" onClick={() => { this.onStart() }}>
+                                Start Giffing
                             </div>
-                        </div>
-                    )
-                }
-                {
-                    this.state.fileSelected && (this.props.gifType === GifCreationType.VideoToGif)
-                    && this.state.previewResultUrl && (
-                        <div className="download-ready">
-                            <img src={this.state.previewResultUrl} className="video-to-gif-result"/>    
-                            <a download={this.state.fileSelected.name.split(".")[0] + ".gif"}  
-                                href={this.state.previewResultUrl} 
-                                className="download">Download</a>
                         </div>
                     )
                 }
@@ -109,7 +95,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
 
     setVideo(videoEl: HTMLVideoElement | null) {
         this.videoEl = videoEl;
-        if(this.videoEl) {
+        if (this.videoEl) {
             this.videoEl.onloadedmetadata = () => {
                 this.startCreateGif();
                 this.props.hideLoader && this.props.hideLoader();
@@ -124,7 +110,7 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
     }
 
     onStart() {
-        if(this.videoEl) {
+        if (this.videoEl) {
             this.videoEl.pause();
             this.videoEl.currentTime = 0;
             this.gif.abort()
@@ -134,11 +120,11 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
     }
 
     capture() {
-        if(this.videoEl && this.gif) {
+        if (this.videoEl && this.gif) {
             this.setState({
                 info: "Capturing at " + this.videoEl.currentTime.toFixed(2)
             });
-            this.gif.addFrame(this.videoEl, {copy: true, delay: this.state.intervalValue});
+            this.gif.addFrame(this.videoEl, { copy: true, delay: this.state.intervalValue });
         }
     }
 
@@ -150,6 +136,35 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
         });
     }
 
+    openModalResult(): void {
+        const fileName = this.state.fileSelected ?
+        this.state.fileSelected.name.split(".")[0] + ".gif"
+        : "PhotoMaster.gif";
+        ModalManager.open(<DynamicModal
+            resultFileName={fileName}
+            resultUrl={this.state.previewResultUrl} 
+            resultClass="video-to-gif-result"/>)
+    }
+
+    manageCupturingOfVideoFrames(): void {
+        var timer: any;
+        if (this.videoEl) {
+            this.videoEl.onplay = () => {
+                if (timer) {
+                    clearInterval(timer);
+                }
+                timer = setInterval(() => { this.capture() }, this.state.intervalValue);
+            }
+
+            this.videoEl.onended = () => {
+                if (timer) {
+                    clearInterval(timer);
+                }
+                this.gif.render();
+            }
+        }
+    }
+
     startCreateGif() {
         this.gif = new GIF({
             workers: 4,
@@ -158,43 +173,20 @@ export default class GifCreator extends React.Component<GifCreatorProps, GifCrea
             height: this.videoEl && this.videoEl.videoHeight
         });
 
-        this.gif.on("start", () => {
-            this.startTime = new Date();
-        });
-
         this.gif.on('finished', (blob: Blob) => {
             this.setState({
-                info: "Ready To Download",
+                info: "Ready To Start Again",
                 previewResultUrl: URL.createObjectURL(blob)
             });
-            // var delta = (new Date()).valueOf() - this.startTime.valueOf();
-            // this.setState({
-            //     info:"done in " + (delta / 1000).toFixed(2) + "sec" +
-            //     "size " + (blob.size / 1000).toFixed(2) + "kb"
-            // });
+            this.openModalResult();
         });
 
         this.gif.on("progress", (p: number) => {
-               this.setState({
+            this.setState({
                 info: "Rendering: " + Math.round(p * 100) + "%"
             });
         });
 
-        var timer: any;
-        if(this.videoEl) {
-            this.videoEl.onplay = () => {
-                if(timer) {
-                    clearInterval(timer);
-                }
-                timer = setInterval(() => {this.capture()}, this.state.intervalValue);
-            }
-
-            this.videoEl.onended = () => {
-                if(timer) {
-                    clearInterval(timer);
-                }
-                this.gif.render();
-            }
-        }
+        this.manageCupturingOfVideoFrames();
     }
 }

@@ -3,8 +3,13 @@ html {
 }
 body {
   min-height: 100%;
+  height: 100%;
   margin: 8px;
   background-color: #393939;
+  overflow: hidden;
+}
+#root {
+  height: 100%;
 }
 .app {
   position: relative;
@@ -15,6 +20,7 @@ body {
 }
 .app .app-body {
   padding-top: 60px;
+  height: 100%;
 }
 .app .hide {
   display: none;
@@ -109,44 +115,30 @@ body {
   margin: 5px;
 }
 .create-gif,
-.crop {
+.crop,
+.dynamic-modal {
   overflow: hidden;
 }
 .create-gif video,
 .crop video,
+.dynamic-modal video,
 .create-gif .video-to-gif-result,
-.crop .video-to-gif-result {
+.crop .video-to-gif-result,
+.dynamic-modal .video-to-gif-result {
   position: relative;
   width: 250px;
   height: 150px;
 }
 .create-gif .gif-config,
-.crop .gif-config {
+.crop .gif-config,
+.dynamic-modal .gif-config {
   display: flex;
   flex-wrap: wrap;
 }
-.create-gif .download-ready,
-.crop .download-ready {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.create-gif .download-ready .download,
-.crop .download-ready .download {
-  border-radius: 28px;
-  font-family: Arial;
-  background: #7CB342;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  margin-top: 15px;
-}
 .create-gif .do-it,
-.crop .do-it {
-  color: #fff;
-  width: 50px;
+.crop .do-it,
+.dynamic-modal .do-it {
+  width: 110px;
   position: relative;
   text-align: center;
   left: 50%;
@@ -161,6 +153,12 @@ body {
 }
 .crop {
   text-align: center;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+}
+.crop .image-block {
+  align-self: center;
 }
 .crop .upload-image {
   position: relative;
@@ -179,6 +177,49 @@ body {
   color: #fff;
   font-size: 2em;
   margin-top: 20px;
+}
+.dynamic-modal .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  min-height: 150px;
+}
+.dynamic-modal .content .btns {
+  display: flex;
+  line-height: 35px;
+  height: 35px;
+  font-size: 15px;
+  width: 100%;
+  margin-top: auto;
+}
+.dynamic-modal .content .btns .btn {
+  font-family: Arial;
+  background: #7CB342;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  width: 50%;
+}
+.dynamic-modal .content .btns .download {
+  font-family: Arial;
+  background: #7CB342;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  width: 50%;
+  border-radius: 0 0 0 10px;
+  margin-right: 1px;
+}
+.dynamic-modal .content .btns .close {
+  font-family: Arial;
+  background: #7CB342;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  width: 50%;
+  border-radius: 0 0 10px 0;
 }
 .get-hero,
 .create-gif {
