@@ -46,7 +46,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                                         navigatorList.map((routeNavigatorConfig, index) => {
                                             return (
                                                 <li key={index}>
-                                                    <RouteNavigator routeNavigatorConfig={routeNavigatorConfig} />
+                                                    <RouteNavigator 
+                                                        routeNavigatorConfig={routeNavigatorConfig} 
+                                                        onSelect={() => this.closeMenu()}/>
                                                 </li>
                                             );
                                         })
