@@ -15,3 +15,5 @@ npm-libraries -
 6. react-image-crop-component - https://www.npmjs.com/package/react-image-crop-component
 
 7. react-dynamic-modal - https://github.com/xue2han/react-dynamic-modal
+
+8. react-avatar-editor - https://github.com/mosch/react-avatar-editor

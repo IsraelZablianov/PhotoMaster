@@ -114,6 +114,13 @@ body {
 .routes .route-item .route-item-body {
   margin: 5px;
 }
+.avatar {
+  overflow: hidden;
+}
+.avatar .avatar-editor {
+  display: flex;
+  justify-content: center;
+}
 .create-gif,
 .crop,
 .dynamic-modal {

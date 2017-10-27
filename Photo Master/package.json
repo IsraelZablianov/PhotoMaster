@@ -8,6 +8,7 @@
     "i": "^0.3.5",
     "p5": "^0.5.11",
     "react": "^15.6.1",
+    "react-avatar-editor": "^10.3.0",
     "react-dom": "^15.6.1",
     "react-dynamic-modal": "^1.1.1",
     "react-image-crop-component": "^0.2.4",
